@@ -2,6 +2,24 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys #lib to use key functions
 from selenium.webdriver.support.select import Select #lib to use the select form from
 
+"""
+########################################################################################################
+                                        Copy and Paste to test
+
+        newbot = botSearchEngine(r"C:\driver\chromedriver.exe","https://www.google.com.br/")
+        newbot.actionClick("ValueToSearch","actionType") 
+        newbot.actionSendKeys(searchValue,actionType,keysToSend) --> actionType {
+                                                                xpath,
+                                                                class_name,
+                                                                css_selector,
+                                                                id,
+                                                                link_text,
+                                                                name,
+                                                                partial_link_text,
+                                                                tag_name
+                                                                }
+########################################################################################################
+"""
 
 class botSearchEngine:
     def __init__(self, driverPath,linkToFollow):
@@ -24,21 +42,21 @@ class botSearchEngine:
     def setElement(self,searchValue,actionType):
         try:
             if(actionType.lower() ==  "xpath"):
-                self.__getElement = self.driver.find_element_by_xpath(searchValue)
+                self.getElement = self.driver.find_element_by_xpath(searchValue)
             elif(actionType.lower() ==  "class_name"):
-                self.__getElement = self.driver.find_element_by_class_name(searchValue)
+                self.getElement = self.driver.find_element_by_class_name(searchValue)
             elif(actionType.lower() ==  "css_selector"):
-                self.__getElement = self.driver.find_element_by_css_selector(searchValue)
+                self.getElement = self.driver.find_element_by_css_selector(searchValue)
             elif(actionType.lower() ==  "id"):
-                self.__getElement = self.driver.find_element_by_id(searchValue)
+                self.getElement = self.driver.find_element_by_id(searchValue)
             elif(actionType.lower() ==  "link_text"):
-                self.__getElement = self.driver.find_element_by_link_text(searchValue)
+                self.getElement = self.driver.find_element_by_link_text(searchValue)
             elif(actionType.lower() ==  "name"):
-                self.__getElement = self.driver.find_element_by_name(searchValue)
+                self.getElement = self.driver.find_element_by_name(searchValue)
             elif(actionType.lower() ==  "partial_link_text"):
-                self.__getElement = self.driver.find_element_by_partial_link_text(searchValue)
+                self.getElement = self.driver.find_element_by_partial_link_text(searchValue)
             elif(actionType.lower() ==  "tag_name"):
-                self.__getElement = self.driver.find_element_by_tag_name(searchValue)
+                self.getElement = self.driver.find_element_by_tag_name(searchValue)
         except:
             print("Try again with valid Values on get element") 
     def actionClick(self,searchValue,actionType):
