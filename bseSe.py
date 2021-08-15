@@ -6,48 +6,57 @@ from selenium.webdriver.support.select import Select #lib to use the select form
 class botSearchEngine:
     def __init__(self, driverPath,linkToFollow):
         try:
-            self.driver = webdriver.Chrome(driverPath)
-            self.driver.get(linkToFollow)
-            self.element = ""
+            self.__driver = webdriver.Chrome(driverPath)
+            self.__driver.get(linkToFollow)
+            self.__getElement = ""
         except:
             print("We Got an error trying to init the chromeDriver")
             quit()
-    
-    
+
+    @property
+    def getElement(self):
+        return self.__getElement
+    @property
+    def driver(self):
+        return self.__driver
     def performByArray(self):
         pass
-    def getElement(self,searchValue,actionType):
+    def setElement(self,searchValue,actionType):
         try:
             if(actionType.lower() ==  "xpath"):
-                self.element = self.driver.find_element_by_xpath(searchValue)
+                self.__getElement = self.driver.find_element_by_xpath(searchValue)
             elif(actionType.lower() ==  "class_name"):
-                self.element = self.driver.find_element_by_class_name(searchValue)
+                self.__getElement = self.driver.find_element_by_class_name(searchValue)
             elif(actionType.lower() ==  "css_selector"):
-                self.element = self.driver.find_element_by_css_selector(searchValue)
+                self.__getElement = self.driver.find_element_by_css_selector(searchValue)
             elif(actionType.lower() ==  "id"):
-                self.element = self.driver.find_element_by_id(searchValue)
+                self.__getElement = self.driver.find_element_by_id(searchValue)
             elif(actionType.lower() ==  "link_text"):
-                self.element = self.driver.find_element_by_link_text(searchValue)
+                self.__getElement = self.driver.find_element_by_link_text(searchValue)
             elif(actionType.lower() ==  "name"):
-                self.element = self.driver.find_element_by_name(searchValue)
+                self.__getElement = self.driver.find_element_by_name(searchValue)
             elif(actionType.lower() ==  "partial_link_text"):
-                self.element = self.driver.find_element_by_partial_link_text(searchValue)
+                self.__getElement = self.driver.find_element_by_partial_link_text(searchValue)
             elif(actionType.lower() ==  "tag_name"):
-                self.element = self.driver.find_element_by_tag_name(searchValue)
+                self.__getElement = self.driver.find_element_by_tag_name(searchValue)
         except:
             print("Try again with valid Values on get element") 
     def actionClick(self,searchValue,actionType):
-        try:
-            self.getElement(searchValue,actionType)
-            self.element.click()
-        except:
-            print("Try again with valid Values on click")
+        #try:
+        self.setElement(searchValue,actionType)
+        self.getElement.click()
+        #except:
+           # print("Try again with valid Values on click")
     def actionSendKeys(self,searchValue,actionType,keysToSend):
         try:
-            self.getElement(searchValue,actionType)
-            self.element.send_keys(keysToSend)
+            self.setElement(searchValue,actionType)
+            self.getElement.send_keys(keysToSend)
         except:
             print("Try again with valid Values on click")
+    def goBack(self):
+        self.driver.execute_script("window.history.go(-1)")
+    def go(self):
+        self.driver.execute_script("window.history.go(1)")
     def finishBSE(self):
         self.driver.close()
         quit()
